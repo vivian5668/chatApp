@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/vivian5668/chatApp/issues"
   },
-  "homepage": "https://github.com/vivian5668/chatApp#readme"
+  "homepage": "https://github.com/vivian5668/chatApp#readme",
+  "dependencies": {
+    "serverless": "^1.67.0",
+    "serverless-webpack": "^5.3.1"
+  }
 }
