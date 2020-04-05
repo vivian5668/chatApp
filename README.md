@@ -1,4 +1,4 @@
-# chatApp
+# chatApp Backend with Cloudformtion
 
 Stack
 - API Gateway Websocket
