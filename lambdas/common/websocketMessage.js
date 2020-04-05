@@ -9,13 +9,19 @@ const create = (domainName, stage) => {
 }
 
 const send = ({domainName, stage, connectionID, message}) => {
+  console.log(`in websocketMessage: before ws is created`)
   const ws = create(domainName, stage);
+  console.log(`in websocketMessage:  ws is created`)
   const postParams = {
+    ConnectionId: connectionID,
     Data: message,
-    connectionId: connectionID
   }
-
-  return ws.postToConnection(postParams).promise();
+  console.log(`in websocketMessage:  postParams is ${JSON.stringify(postParams)}`)
+  return ws.postToConnection(postParams, function(err, data) {
+    console.log(`in websocketMessage: in postToConnection callBack`)
+    if (err) console.log(`${err}`); // an error occurred
+    else     console.log(`data is ${data}`);           // successful response
+  }).promise();
 }
 
 module.exports = {

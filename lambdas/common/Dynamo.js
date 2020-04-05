@@ -48,7 +48,42 @@ const Dynamo = {
         }
       }
 
-      return documentClient.delete(params).promise()
+      return documentClient.delete(params).promise();
+    },
+
+    async getAllMessagesAndConnections(table) {
+        let allMessages = []
+        let connectionsIDs = []
+        const params = {
+            TableName: table
+        }
+        console.log(`in getAllMessagesAndConnections.....`)
+
+        const data = await documentClient.get(params).promise();
+
+        if (!data || !data.Items) {
+            throw Error(`There was an error fetching the data for ID of ${ID} from ${TableName}`);
+        }
+        console.log(data);
+        data.Items.forEach(function(record) {
+            allMessages = [...allMessages, record.messages]
+            connectionsIDs = [...connectionsIDs, record.connectionsID]
+        });
+
+
+        // await documentClient.scan(params, function(err, data) {
+        //     console.log(`err is ${err}`)
+        //     data.Items.forEach(function(record) {
+        //         allMessages = [...allMessages, record.messages]
+        //         connectionsIDs = [...connectionsIDs, record.connectionsID]
+        //     });
+        // }).promise();
+        conosle.log(`all messages are: ${JSON.stringify(allMessages)}`)
+        conosle.log(`all connectionsIDs are: ${JSON.stringify(connectionsIDs)}`)
+        return {
+            allMessages,
+            connectionsIDs
+        };
     }
 };
 module.exports = Dynamo;

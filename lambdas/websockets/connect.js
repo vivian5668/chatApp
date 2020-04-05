@@ -1,5 +1,6 @@
 const Responses = require('../common/API_Responses');
 const Dynamo = require('../common/Dynamo');
+const WebSocket = require('../common/websocketMessage');
 
 const tableName = process.env.tableName;
 
@@ -17,11 +18,6 @@ exports.handler = async event => {
   }
 
   await Dynamo.write(data, tableName)
-
-  // get all current connected clients and broadcast data
-  // const connections = await getAllConnections();
-  // const promises = connections.map(c => apiGwMgmtApi.postToConnection({ ConnectionId: c.connectionId, Data: 'test' }).promise());
-  // await Promise.all(promises);
 
   return Responses._200({message: 'connected'});
 }
